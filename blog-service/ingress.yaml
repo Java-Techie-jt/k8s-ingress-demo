@@ -1,0 +1,25 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: microservices-ingress
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  rules:
+    - host: javatechie.com
+      http:
+        paths:
+          - path: "/course(/|$)(.*)"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: course-service
+                port:
+                  number: 80
+          - path: "/blog(/|$)(.*)"
+            pathType: ImplementationSpecific
+            backend:
+              service:
+                name: blog-service
+                port:
+                  number: 80
